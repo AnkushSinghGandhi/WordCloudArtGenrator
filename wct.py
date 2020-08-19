@@ -49,3 +49,21 @@ w = int(input("Width: "))
 h = int(input("Height: "))
 
 
+wordcloud = WordCloud(width = w, height = h, 
+                background_color ='black',
+                min_font_size = 5,
+                stopwords = stopwords,
+                random_state = 42).generate(finalText) 
+
+# for grey scale
+def grey_color_func(word, font_size, position, orientation, random_state = None, **kwargs):
+    return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
+
+# plot the wordcloud image
+plt.figure(figsize = (8, 2), facecolor = None) 
+plt.imshow(wordcloud)
+plt.imshow(wordcloud.recolor(color_func = grey_color_func, random_state = 3), interpolation = "bilinear")
+plt.axis("off") 
+plt.tight_layout(pad = 0) 
+plt.savefig("wordcloud.png")
+plt.show()
